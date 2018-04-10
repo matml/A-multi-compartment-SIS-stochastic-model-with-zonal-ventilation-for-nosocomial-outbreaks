@@ -619,6 +619,8 @@ initial_infective_positions=[0,1,3,4]
 
 plt.figure(1)
 
+print("Mean values reported in Table IV")
+
 # We explore the six regimes in Figure 7
 for regime_index in range(6):
 
@@ -657,7 +659,7 @@ for regime_index in range(6):
 			n=0
 			a=[0]*M
 
-			mean_R0=0
+			mean_R=0
 
 			# Apply a recursive scheme for implementing Algorithm 1, for n=0
 			P[0][tuple(a)]=1
@@ -667,7 +669,7 @@ for regime_index in range(6):
 					a[l-1]=i1
 					My_function(2,a,I,M)
 					a[l-1]=0
-			mean_R0+=0*P[0][tuple(init_state)]
+			mean_R+=0*P[0][tuple(init_state)]
 
 			probabilities=np.append([],P[0][tuple(init_state)])
 			probabilities_nmax=np.append([],P[0][tuple(init_state)])
@@ -686,9 +688,9 @@ for regime_index in range(6):
 				probabilities=np.append(probabilities,P[n][tuple(init_state)])
 				if n<=nmax:
 					probabilities_nmax=np.append(probabilities_nmax,P[n][tuple(init_state)])
-				mean_R0+=n*P[n][tuple(init_state)]
+				mean_R+=n*P[n][tuple(init_state)]
 
-			print("E[R_0]: ",mean_R0)
+			print("E[R]: ",mean_R)
 			
 			if regime=='A':
 				plt.bar(np.arange(0, nmax+1, 1)-0.5, probabilities_nmax, width=0.15, color="black",label='A')
@@ -704,7 +706,7 @@ for regime_index in range(6):
 				plt.bar(np.arange(0, nmax+1, 1)+0.25, probabilities_nmax, width=0.15, color="brown",label='F')
 			
 			plt.xlabel("n")
-			plt.ylabel(r'$P(R_{0}=n)$')
+			plt.ylabel(r'$P(R=n)$')
 			plt.xlim(-0.5,nmax+0.5)
 			plt.ylim(0,0.5)
 			plt.legend()
